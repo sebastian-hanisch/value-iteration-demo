@@ -1,4 +1,4 @@
-"""Plotly-Abbildungen der Demo "Wert- und Politikiteration". Achsen sind gesperrt (fixedrange)."""
+"""Plotly-Abbildungen der Demo "Value Iteration und Policy Iteration". Achsen sind gesperrt (fixedrange)."""
 
 import numpy as np
 import plotly.graph_objects as go
@@ -28,7 +28,7 @@ def de(x, digits=2):
 
 
 def build_grid(grid, V, policy=None, title_values=True):
-    """Raster als Heatmap über V(s), mit Pfeilen der Politik (falls gegeben); Klippe dunkel, Ziel grün, Start violett umrandet."""
+    """Raster als Heatmap über V(s), mit Pfeilen der Policy (falls gegeben); Klippe dunkel, Ziel grün, Start violett umrandet."""
     R, Cc = grid.rows, grid.cols
     z = np.full((R, Cc), np.nan)
     text = [["" for _ in range(Cc)] for _ in range(R)]
@@ -68,7 +68,7 @@ def build_grid(grid, V, policy=None, title_values=True):
 
 
 def build_convergence(hist_vi, start_state):
-    """V(Start) über die Sweeps der Wertiteration."""
+    """V(Start) über die Sweeps der Value Iteration."""
     y = hist_vi[:, start_state]
     x = np.arange(len(y))
     fig = go.Figure()
@@ -84,9 +84,9 @@ def build_sweeps(exp):
     pi_outer = [r["pi_outer"] for r in exp["rows"]]
     pi_total = [r["pi_total"] for r in exp["rows"]]
     fig = go.Figure()
-    fig.add_trace(go.Bar(x=labels, y=vi, name="Wertiteration (Sweeps)", marker=dict(color="#1f77b4")))
-    fig.add_trace(go.Bar(x=labels, y=pi_outer, name="Politikiteration (äußere Schritte)", marker=dict(color="#8c6bb1")))
-    fig.add_trace(go.Bar(x=labels, y=pi_total, name="Politikiteration (Sweeps insgesamt)", marker=dict(color="#d62728")))
+    fig.add_trace(go.Bar(x=labels, y=vi, name="Value Iteration (Sweeps)", marker=dict(color="#1f77b4")))
+    fig.add_trace(go.Bar(x=labels, y=pi_outer, name="Policy Iteration (äußere Schritte)", marker=dict(color="#8c6bb1")))
+    fig.add_trace(go.Bar(x=labels, y=pi_total, name="Policy Iteration (Sweeps insgesamt)", marker=dict(color="#d62728")))
     fig.update_layout(barmode="group")
     fig.update_yaxes(title_text="Sweeps", type="log")
     fig.update_xaxes(title_text="Raster")
@@ -98,7 +98,7 @@ def build_slip(exp):
     gap = [r["gap"] for r in exp["rows"]]
     east = [100 * r["east_cells"] / r["east_total"] for r in exp["rows"]]
     fig = go.Figure()
-    fig.add_trace(go.Bar(x=[de(x, 2) for x in levels], y=gap, name="Mehrkosten der naiven Politik", marker=dict(color="#d62728"), yaxis="y1"))
+    fig.add_trace(go.Bar(x=[de(x, 2) for x in levels], y=gap, name="Mehrkosten der naiven Policy", marker=dict(color="#d62728"), yaxis="y1"))
     fig.add_trace(go.Scatter(x=[de(x, 2) for x in levels], y=east, name="Anteil \"an der Klippe entlang\"", mode="lines+markers", line=dict(color="#1f77b4", width=2), marker=dict(size=7), yaxis="y2"))
     fig.update_layout(yaxis=dict(title="V*(Start) − V_naiv(Start)", rangemode="tozero"), yaxis2=dict(title="Anteil Zellen \"Osten\" (%)", overlaying="y", side="right", range=[0, 100], showgrid=False))
     fig.update_xaxes(title_text="Rutsch-Wahrscheinlichkeit")
@@ -110,8 +110,8 @@ def build_gamma(exp):
     vi = [r["vi_sweeps"] for r in exp["rows"]]
     pi = [r["pi_eval_sweeps"] for r in exp["rows"]]
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x=[de(x, 2) for x in levels], y=vi, name="Wertiteration (Sweeps)", mode="lines+markers", line=dict(color="#1f77b4", width=2), marker=dict(size=7)))
-    fig.add_trace(go.Scatter(x=[de(x, 2) for x in levels], y=pi, name="Politikiteration (Bewertungs-Sweeps)", mode="lines+markers", line=dict(color="#d62728", width=2), marker=dict(size=7)))
+    fig.add_trace(go.Scatter(x=[de(x, 2) for x in levels], y=vi, name="Value Iteration (Sweeps)", mode="lines+markers", line=dict(color="#1f77b4", width=2), marker=dict(size=7)))
+    fig.add_trace(go.Scatter(x=[de(x, 2) for x in levels], y=pi, name="Policy Iteration (Bewertungs-Sweeps)", mode="lines+markers", line=dict(color="#d62728", width=2), marker=dict(size=7)))
     fig.update_xaxes(title_text="Diskontfaktor γ")
     fig.update_yaxes(title_text="Sweeps", type="log")
     return _base(fig, 340).update_layout(legend=dict(orientation="h", y=-0.3))

@@ -1,6 +1,6 @@
-"""Wert- und Politikiteration auf dem bekannten Modell (P, R) - Bellman (1957), Howard (1960). Beide liefern dieselbe optimale Wertfunktion und
-Politik (bis auf Gleichstände); die Politikbewertung von Politikiteration läuft selbst iterativ (nicht als exakte Lösung eines linearen Gleichungssystems),
-damit sich der Aufwand beider Verfahren in derselben Einheit (Sweeps: eine vollständige Runde über alle Zustände) vergleichen lässt."""
+"""Value Iteration und Policy Iteration auf dem bekannten Modell (P, R) - Bellman (1957), Howard (1960). Beide liefern dieselbe optimale Value Function und
+Policy (bis auf Gleichstände); die Policy Evaluation von Policy Iteration läuft selbst iterativ (nicht als exakte Lösung eines linearen Gleichungssystems),
+damit sich der Aufwand beider Verfahren in derselben Einheit (Sweeps: eine vollständige Runde über alle States) vergleichen lässt."""
 
 import numpy as np
 
@@ -13,7 +13,7 @@ def q_values(P, R, V, gamma):
 
 
 def value_iteration(P, R, gamma, tol=C.TOL, max_iter=C.MAX_ITER):
-    """Rückgabe: V*, Politik (gierig bezüglich V*), Verlauf von V (eine Zeile je Sweep, Zeile 0 = Start bei 0), Zahl der Sweeps."""
+    """Rückgabe: V*, Policy (gierig bezüglich V*), Verlauf von V (eine Zeile je Sweep, Zeile 0 = Start bei 0), Zahl der Sweeps."""
     S = P.shape[0]
     V = np.zeros(S)
     history = [V.copy()]
@@ -30,7 +30,7 @@ def value_iteration(P, R, gamma, tol=C.TOL, max_iter=C.MAX_ITER):
 
 
 def policy_evaluation(P, R, policy, gamma, tol=C.TOL, max_iter=C.MAX_ITER):
-    """Iterative Politikbewertung (kein exaktes Gleichungssystem): V_pi als Grenzwert von V <- R_pi + gamma * P_pi @ V. Rückgabe: V_pi, Zahl der Sweeps."""
+    """Iterative Policy Evaluation (kein exaktes Gleichungssystem): V_pi als Grenzwert von V <- R_pi + gamma * P_pi @ V. Rückgabe: V_pi, Zahl der Sweeps."""
     S = P.shape[0]
     idx = np.arange(S)
     P_pi = P[idx, policy]
@@ -46,7 +46,7 @@ def policy_evaluation(P, R, policy, gamma, tol=C.TOL, max_iter=C.MAX_ITER):
 
 
 def policy_iteration(P, R, gamma, eval_tol=C.TOL, max_outer=C.MAX_ITER, max_eval_iter=C.MAX_ITER):
-    """Rückgabe: V_pi der letzten Politik, Politik, Zahl der äußeren Verbesserungsschritte, Gesamtzahl der Bewertungs-Sweeps, Verlauf der Politiken."""
+    """Rückgabe: V_pi der letzten Policy, Policy, Zahl der äußeren Verbesserungsschritte, Gesamtzahl der Bewertungs-Sweeps, Verlauf der Policies."""
     S = P.shape[0]
     policy = np.zeros(S, dtype=int)
     history = [policy.copy()]

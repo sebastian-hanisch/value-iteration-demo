@@ -1,4 +1,4 @@
-"""Konstanten der Demo "Wert- und Politikiteration" (Stück 2, Wurzel B der Reinforcement-Learning-Linie): das Raster, feste Belohnungen, Regler, Experimente."""
+"""Konstanten der Demo "Value Iteration und Policy Iteration" (Stück 2, Wurzel B der Reinforcement-Learning-Linie): das Raster, feste Rewards, Regler, Experimente."""
 
 EPS = 1e-9
 SEED_MAX = 999999

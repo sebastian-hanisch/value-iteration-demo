@@ -1,5 +1,5 @@
-"""Auswertung: Wert- und Politikiteration auf demselben Modell, dazu drei Experimente (Sweeps über Rastergröße und Diskontfaktor, Wirkung der
-Rutsch-Wahrscheinlichkeit auf die Politik, Wirkung des Diskontfaktors auf Politik gegen Konvergenzgeschwindigkeit). Das Modell ist deterministisch
+"""Auswertung: Value Iteration und Policy Iteration auf demselben Modell, dazu drei Experimente (Sweeps über Rastergröße und Diskontfaktor, Wirkung der
+Rutsch-Wahrscheinlichkeit auf die Policy, Wirkung des Diskontfaktors auf die Policy gegen die Konvergenzgeschwindigkeit). Das Modell ist deterministisch
 (kein Zufall in der Erzeugung) - jede Zahl ist exakt, keine Seeds, keine Bänder nötig."""
 
 from dataclasses import dataclass
@@ -70,7 +70,7 @@ def sweeps_experiment(sizes=None, slip=None, gamma=None):
     return {"sizes": tuple(sizes), "rows": rows}
 
 
-# --- Experiment 2: Rutsch-Wahrscheinlichkeit gegen die Politik -------------------------------------------------------------------------------------
+# --- Experiment 2: Rutsch-Wahrscheinlichkeit gegen die Policy --------------------------------------------------------------------------------------
 
 def slip_experiment(levels=None, rows=None, cols=None, gamma=None):
     levels = C.EXP_SLIP_LEVELS if levels is None else levels
@@ -90,7 +90,7 @@ def slip_experiment(levels=None, rows=None, cols=None, gamma=None):
     return {"levels": tuple(levels), "rows": out}
 
 
-# --- Experiment 3: Diskontfaktor - Politik gegen Konvergenzgeschwindigkeit --------------------------------------------------------------------------
+# --- Experiment 3: Diskontfaktor - Policy gegen Konvergenzgeschwindigkeit ---------------------------------------------------------------------------
 
 def gamma_experiment(levels=None, rows=None, cols=None, slip=None):
     levels = C.EXP_GAMMA_LEVELS if levels is None else levels

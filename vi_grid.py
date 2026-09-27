@@ -1,7 +1,7 @@
 """Das Vehikel: ein Lagerroboter auf einem Raster (die Cliff-Walking-Vorlage aus Sutton & Barto 2018, Beispiel 6.6). Start unten links, Packstation (Ziel)
 unten rechts, dazwischen in der untersten Zeile ein schmaler Gang entlang der Regalkante ("Klippe"). Vier Richtungen; mit der Rutsch-Wahrscheinlichkeit
 `slip` rutscht der Roboter statt der gewählten Richtung mit gleicher Wahrscheinlichkeit auf eine der beiden dazu senkrechten Richtungen. Ein Schritt an
-den Rand oder gegen die Wand hält auf der Stelle. Die Packstation ist ein aufnehmender (absorbierender) Zustand: von dort führt jede Aktion zurück
+den Rand oder gegen die Wand hält auf der Stelle. Die Packstation ist ein aufnehmender (absorbierender) State: von dort führt jede Action zurück
 zu ihr selbst, ohne weitere Kosten oder Erträge."""
 
 from dataclasses import dataclass
@@ -59,7 +59,7 @@ class Grid:
 
 
 def naive_policy(grid):
-    """Vergleichspolitik ohne Rücksicht auf das Rutschen: von jeder Zelle direkt zur Reihe über der Klippe, dort nach Osten bis zur letzten Spalte,
+    """Vergleichspolicy ohne Rücksicht auf das Rutschen: von jeder Zelle direkt zur Reihe über der Klippe, dort nach Osten bis zur letzten Spalte,
     dann nach Süden zur Packstation - der kürzeste Weg, wenn man die Übergänge für sicher hält."""
     S = grid.n_states
     pol = np.zeros(S, dtype=int)
@@ -78,7 +78,7 @@ def naive_policy(grid):
 
 
 def build_model(grid):
-    """Modell (P, R): P[s, a, s'] Übergangswahrscheinlichkeit, R[s, a] erwartete Belohnung (Erwartungswert über die drei möglichen Ausgänge der Aktion)."""
+    """Modell (P, R): P[s, a, s'] Übergangswahrscheinlichkeit, R[s, a] erwarteter Reward (Erwartungswert über die drei möglichen Ausgänge der Action)."""
     S, A = grid.n_states, len(ACTIONS)
     P = np.zeros((S, A, S))
     R = np.zeros((S, A))
