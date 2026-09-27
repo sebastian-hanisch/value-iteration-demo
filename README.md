@@ -1,5 +1,7 @@
 # 🗺️ Value Iteration und Policy Iteration
 
+**[→ Demo live ausprobieren](https://sebastianhanisch-value-iteration-demo.streamlit.app/)**
+
 Zweites Stück (Wurzel B) der **Reinforcement-Learning-Linie** der "Konzepte"-Reihe im Portfolio von [Sebastian Hanisch](https://sebastianhanisch.net) – Operations Research und Machine Learning. Ein Lagerroboter bewegt sich auf einem Raster mit einer Klippe entlang des kürzesten Wegs; anders als beim [Bandit](https://github.com/sebastian-hanisch/bandit-demo) (Stück 1) gibt es jetzt einen State – und das Modell ist **vollständig bekannt**. **Value Iteration** und **Policy Iteration** (Bellman 1957, Howard 1960) berechnen die optimale Policy direkt aus der Bellman-Gleichung, ganz ohne einen einzigen Testlauf.
 
 ## Kernfrage
