@@ -101,7 +101,7 @@ def build_slip(exp):
     fig.add_trace(go.Bar(x=[de(x, 2) for x in levels], y=gap, name="Mehrkosten der naiven Policy", marker=dict(color="#d62728"), yaxis="y1"))
     fig.add_trace(go.Scatter(x=[de(x, 2) for x in levels], y=east, name="Anteil \"an der Klippe entlang\"", mode="lines+markers", line=dict(color="#1f77b4", width=2), marker=dict(size=7), yaxis="y2"))
     fig.update_layout(yaxis=dict(title="V*(Start) − V_naiv(Start)", rangemode="tozero"), yaxis2=dict(title="Anteil Zellen \"Osten\" (%)", overlaying="y", side="right", range=[0, 100], showgrid=False))
-    fig.update_xaxes(title_text="Rutsch-Wahrscheinlichkeit")
+    fig.update_xaxes(title_text="Rutsch-Wahrscheinlichkeit", type="category")
     return _base(fig, 360).update_layout(legend=dict(orientation="h", y=-0.3))
 
 
@@ -112,6 +112,6 @@ def build_gamma(exp):
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=[de(x, 2) for x in levels], y=vi, name="Value Iteration (Sweeps)", mode="lines+markers", line=dict(color="#1f77b4", width=2), marker=dict(size=7)))
     fig.add_trace(go.Scatter(x=[de(x, 2) for x in levels], y=pi, name="Policy Iteration (Bewertungs-Sweeps)", mode="lines+markers", line=dict(color="#d62728", width=2), marker=dict(size=7)))
-    fig.update_xaxes(title_text="Diskontfaktor γ")
+    fig.update_xaxes(title_text="Diskontfaktor γ", type="category")
     fig.update_yaxes(title_text="Sweeps", type="log")
     return _base(fig, 340).update_layout(legend=dict(orientation="h", y=-0.3))
