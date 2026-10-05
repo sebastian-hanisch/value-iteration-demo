@@ -12,6 +12,18 @@ def q_values(P, R, V, gamma):
     return R + gamma * np.einsum("sat,t->sa", P, V)
 
 
+def greedy_policy(Q, current=None, tol=C.TIE_TOL):
+    """Gierige Policy mit festem Gleichstand: unter allen Actions, deren Q höchstens `tol` unter dem Maximum liegt, gilt die bisherige Action (falls
+    `current` gegeben und darunter), sonst die mit dem kleinsten Index. Ohne die Toleranz entscheidet das Rauschen der iterativen Bewertung (~1e-8)
+    über Gleichstände - etwa die konstante Startbewertung der Policy 'immer Norden' - und damit über die Zahl der äußeren Schritte."""
+    ok = Q >= Q.max(axis=1, keepdims=True) - tol
+    policy = ok.argmax(axis=1)
+    if current is not None:
+        idx = np.arange(Q.shape[0])
+        policy = np.where(ok[idx, current], current, policy)
+    return policy
+
+
 def value_iteration(P, R, gamma, tol=C.TOL, max_iter=C.MAX_ITER):
     """Rückgabe: V*, Policy (gierig bezüglich V*), Verlauf von V (eine Zeile je Sweep, Zeile 0 = Start bei 0), Zahl der Sweeps."""
     S = P.shape[0]
@@ -25,7 +37,7 @@ def value_iteration(P, R, gamma, tol=C.TOL, max_iter=C.MAX_ITER):
         V = newV
         if delta < tol:
             break
-    policy = q_values(P, R, V, gamma).argmax(axis=1)
+    policy = greedy_policy(q_values(P, R, V, gamma))
     return V, policy, np.array(history), it
 
 
@@ -55,7 +67,7 @@ def policy_iteration(P, R, gamma, eval_tol=C.TOL, max_outer=C.MAX_ITER, max_eval
     for outer in range(1, max_outer + 1):
         V, sweeps = policy_evaluation(P, R, policy, gamma, eval_tol, max_eval_iter)
         total_eval_sweeps += sweeps
-        new_policy = q_values(P, R, V, gamma).argmax(axis=1)
+        new_policy = greedy_policy(q_values(P, R, V, gamma), current=policy)
         history.append(new_policy.copy())
         if np.array_equal(new_policy, policy):
             break

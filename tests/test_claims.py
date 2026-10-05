@@ -34,8 +34,8 @@ def presets():
 def test_sweeps_by_size(sweeps):
     rows = {(r["rows"], r["cols"]): r for r in sweeps["rows"]}
     r0, r1 = rows[(3, 4)], rows[(6, 12)]
-    assert r0["vi_sweeps"] == 38 and r0["pi_outer"] == 4 and r0["pi_total"] == 940
-    assert r1["vi_sweeps"] == 49 and r1["pi_outer"] == 5 and r1["pi_total"] == 1010
+    assert r0["vi_sweeps"] == 38 and r0["pi_outer"] == 5 and r0["pi_total"] == 1192
+    assert r1["vi_sweeps"] == 49 and r1["pi_outer"] == 8 and r1["pi_total"] == 1963
     for r in sweeps["rows"]:
         assert r["pi_outer"] < r["vi_sweeps"] and r["pi_total"] > r["vi_sweeps"]
 
@@ -55,8 +55,8 @@ def test_gamma_barely_changes_the_policy_but_changes_convergence_speed(gamma):
     total_diff = sum(r["policy_diff_vs_previous"] for r in gamma["rows"])
     assert total_diff == 1
     r0, r1 = gamma["rows"][0], gamma["rows"][-1]
-    assert r0["gamma"] == pytest.approx(0.80) and r0["pi_eval_sweeps"] == 389
-    assert r1["gamma"] == pytest.approx(0.99) and r1["pi_eval_sweeps"] == 4029
+    assert r0["gamma"] == pytest.approx(0.80) and r0["pi_eval_sweeps"] == 458
+    assert r1["gamma"] == pytest.approx(0.99) and r1["pi_eval_sweeps"] == 5974
     assert r0["vi_sweeps"] == 68 and r1["vi_sweeps"] == 47
 
 
@@ -64,7 +64,7 @@ def test_standard_preset(presets):
     a = presets["Standardfall"]
     s0 = a.grid.state_of(a.grid.start)
     assert a.V_vi[s0] == pytest.approx(-9.23, abs=0.02)
-    assert a.sweeps_vi == 44 and a.outer_pi == 5 and a.eval_sweeps_pi == 1158 and a.outer_pi + a.eval_sweeps_pi == 1163
+    assert a.sweeps_vi == 44 and a.outer_pi == 5 and a.eval_sweeps_pi == 1314 and a.outer_pi + a.eval_sweeps_pi == 1319
 
 
 def test_no_slip_preset(presets):

@@ -93,10 +93,10 @@ def apply_preset(name):
 
 
 PRESET_HELP = {
-    "Standardfall": "4×8-Raster, Rutschen 0,10: V(Start) −9,23. Value Iteration 44 Sweeps, Policy Iteration nur 5 äußere Schritte, aber 1158 Bewertungs-Sweeps (insgesamt 1163) - weniger äußere Schritte heißt nicht weniger Arbeit.",
-    "Kein Rutschen (deterministisch)": "Ohne Rutschen ist der direkte Weg entlang der Klippe optimal (V(Start) −0,10). Policy Iteration braucht hier ungewöhnlich viele äußere Schritte (11 statt der sonst üblichen 4-5) - viele gleich gute Wege ohne Risiko erzeugen Gleichstände, die erst nach und nach aufgelöst werden.",
+    "Standardfall": "4×8-Raster, Rutschen 0,10: V(Start) −9,23. Value Iteration 44 Sweeps, Policy Iteration nur 5 äußere Schritte, aber 1314 Bewertungs-Sweeps (insgesamt 1319) - weniger äußere Schritte heißt nicht weniger Arbeit.",
+    "Kein Rutschen (deterministisch)": "Ohne Rutschen ist der direkte Weg entlang der Klippe optimal (V(Start) −0,10). Policy Iteration braucht hier ungewöhnlich viele äußere Schritte (11 statt der sonst üblichen 5-8) - viele gleich gute Wege ohne Risiko erzeugen Gleichstände, die erst nach und nach aufgelöst werden.",
     "Starkes Rutschen": "Rutschen 0,30: V(Start) fällt auf −10,12, kaum schlechter als bei 0,10 (−9,23) - die optimale Policy hat sich da schon ganz von der Klippe zurückgezogen und verliert kaum noch etwas an weiterem Rutschen. Value Iteration braucht dafür deutlich mehr Sweeps (102).",
     "Kleines Raster": "3×4-Raster (12 States): V(Start) −4,60, Value Iteration 38 Sweeps - kaum weniger als beim viel größeren Standardraster (44), weil die Sweep-Zahl vor allem vom Diskontfaktor abhängt, nicht von der Zahl der States.",
     "Großes Raster": "6×12-Raster (72 States): V(Start) −12,77 (der längere Weg kostet mehr Schritte), Value Iteration 49 Sweeps - nur wenig mehr als beim 4×8-Standardraster (44).",
-    "Niedriger Diskontfaktor": "γ=0,80: Policy Iteration braucht dafür nur 389 Bewertungs-Sweeps statt 1158 bei γ=0,95 - ein niedrigerer Diskontfaktor macht die Policy Evaluation viel schneller konvergent, ändert die Policy selbst aber kaum.",
+    "Niedriger Diskontfaktor": "γ=0,80: Policy Iteration braucht dafür nur 458 Bewertungs-Sweeps statt 1314 bei γ=0,95 - ein niedrigerer Diskontfaktor macht die Policy Evaluation viel schneller konvergent, ändert die Policy selbst aber kaum.",
 }

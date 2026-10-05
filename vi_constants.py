@@ -14,6 +14,7 @@ SLIP_MIN, SLIP_MAX, SLIP_STEP, DEFAULT_SLIP = 0.0, 0.30, 0.02, 0.10
 GAMMA_MIN, GAMMA_MAX, GAMMA_STEP, DEFAULT_GAMMA = 0.80, 0.99, 0.01, 0.95
 
 TOL = 1e-8
+TIE_TOL = 1e-5                                                                                 # Q-Abstand, unter dem zwei Actions als gleich gut gelten (größer als der Bewertungsfehler ~TOL*gamma/(1-gamma))
 MAX_ITER = 5000
 
 # --- Experimente (feste Konfigurationen) -----------------------------------------------------------------------------------------------------------
